@@ -1,0 +1,194 @@
+<resources>
+    <string name="app_name">Bac Română</string>
+    <string name="home">Acasă</string>
+    <string name="subiectul_i">I</string>
+    <string name="subiectul_ii">II</string>
+    <string name="subiectul_iii">III</string>
+    <string name="subiectul_i_long">Subiectul I</string>
+    <string name="subiectul_ii_long">Subiectul al II-lea</string>
+    <string name="subiectul_iii_long">Subiectul al III-lea</string>
+    <string name="quiz">Quiz</string>
+    <string name="despre">Despre</string>
+    <string name="politica">Politica de confidențialitate</string>
+    <string name="termeni">Termeni și condiții</string>
+
+    <string name="despre_titlu">Despre Bac Română</string>
+    <string name="despre_text"><![CDATA[
+        <div>
+          <p>Site-ul te ajută să te pregătești pentru examenul de <strong>Bacalaureat la Limba și Literatura Română</strong> și este structurat astfel încât oricine poate găsi rapid ceea ce caută.</p>
+
+          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:24px;">
+            <div style="flex:1; min-width:250px; padding:16px; border-radius:12px; background:#f2f8ff;">
+              <h4>Comunitatea noastră</h4>
+              <p>Alătură-te grupului nostru de Facebook dedicat pregătirii pentru bacalaureat la limba și literatura română. Discută cu alți elevi, pune întrebări și primește sfaturi.</p>
+              <p><a href="https://www.facebook.com/groups/1038200328475286/" style="font-weight:600; text-decoration:none;">Alătură-te grupului</a></p>
+            </div>
+            <div style="flex:1; min-width:250px; padding:16px; border-radius:12px; background:#f2f8ff;">
+              <h4>Aplicația mobilă</h4>
+              <p>Descarcă aplicația mobilă pentru a avea acces la toate materialele direct de pe telefonul tău. Disponibilă pe Google Play.</p>
+              <p><a href="https://play.google.com/store/apps/details?id=com.nxt64software.bacromana" style="font-weight:600; text-decoration:none;">Descarcă din Google Play</a></p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:32px;">Contactează-ne</h3>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:180px; padding:16px; border-radius:12px; background:#f2f8ff; text-align:center;">
+              <p style="margin:0; font-weight:600;">Email</p>
+              <p style="margin:4px 0;"><a href="mailto:acitexsoftwarero@gmail.com" style="text-decoration:none;">acitexsoftwarero@gmail.com</a></p>
+            </div>
+            <div style="flex:1; min-width:180px; padding:16px; border-radius:12px; background:#f2f8ff; text-align:center;">
+              <p style="margin:0; font-weight:600;">Pagina de Facebook</p>
+              <p style="margin:4px 0;"><a href="https://www.facebook.com/profile.php?id=61579041625850" style="text-decoration:none;">Bac Română</a></p>
+            </div>
+          </div>
+
+          Dezvoltator: Alexandru Epure
+
+          <p style="margin-top:32px;">Mulțumim că folosești <strong>Bac Română</strong>. Succes la Bac!</p>
+        </div>
+    ]]></string>
+
+    <string name="politica_titlu">Politica de confidențialitate</string>
+    <string name="politica_text"><![CDATA[
+
+<p>Ultima actualizare: 31 iulie 2025</p>
+
+<h3>1. Introducere</h3>
+<p>Aplicația <strong>Bac Română</strong>, operată de NXT64 Software, dezvoltator: Alexandru Epure, respectă confidențialitatea utilizatorilor și se angajează să protejeze datele personale în conformitate cu Regulamentul General privind Protecția Datelor (GDPR) și bunele practici din industrie. Prin utilizarea aplicației, sunteți de acord cu colectarea și utilizarea informațiilor descrise în această politică.</p>
+
+<h3>2. Conturi și autentificare</h3>
+<p>Aplicația nu permite crearea de conturi personale sau autentificarea cu profiluri persistente. Toate datele relevante (ex. setări, progres) sunt stocate local pe dispozitiv. Nu există urmărire a utilizatorului prin conturi centralizate. Pentru orice solicitare legată de date, ne poți contacta prin email la: <a href="mailto:acitexsoftwarero@gmail.com">acitexsoftwarero@gmail.com</a>.</p>
+
+<h3>3. Ce date colectăm</h3>
+<p>Colectăm doar informațiile strict necesare pentru funcționarea aplicației:</p>
+<ul>
+  <li><strong>Date locale:</strong> Date precum progresul sau preferințele, stocate offline pe dispozitiv pentru a personaliza experiența.</li>
+  <li><strong>Date tehnice:</strong> Informații despre conexiune (de exemplu lipsa internetului) sau erori întâmpinate pentru a detecta probleme de încărcare.</li>
+  <li><strong>Date de diagnostic:</strong> Jurnale minimale pentru îmbunătățirea stabilității aplicației; acestea nu conțin identificatori personali și nu sunt asociate cu un utilizator anume.</li>
+</ul>
+
+<h3>4. Cookie-uri și tehnologii similare</h3>
+<p>Aplicația este un container pentru conținut web care poate încărca pagini de pe <em>www.bacromana.ro</em>. Pe site-ul web pot fi utilizate cookie-uri și tehnologii de urmărire gestionate prin <strong>Google</strong> și alte servicii terțe. Politicile de gestionare a consimțământului sunt conforme cu <strong>IAB TCF</strong> (CMP ID: 300) și includ setări de confidențialitate vizibile pe site.</p>
+<p>Utilizatorii pot controla consimțământul pentru cookie-uri și urmăriri prin interfața disponibilă pe site. În aplicație, nu se colectează automat date de urmărire fără consimțământul exprimat acolo unde este cerut.</p>
+
+<h3>5. Utilizarea datelor</h3>
+<p>Utilizăm datele colectate pentru:</p>
+<ul>
+  <li>Asigurarea funcționării corecte a aplicației (de exemplu detecția conexiunii la internet).</li>
+  <li>Îmbunătățirea experienței utilizatorului și diagnosticarea problemelor tehnice.</li>
+  <li>Comunicarea cu utilizatorii, doar dacă aceștia furnizează voluntar adresa de email pentru suport.</li>
+</ul>
+
+<h3>6. Partajarea datelor</h3>
+<p>Nu vindem datele tale. Datele nu sunt distribuite terților în scopuri comerciale. Pot fi partajate în următoarele circumstanțe:</p>
+<ul>
+  <li>Cu servicii terțe care permit funcționarea conținutului din aplicație (de ex. încărcarea paginilor web de pe bacromana.ro).</li>
+  <li>Dacă legea o cere sau pentru protejarea drepturilor și integrității aplicației (de ex. în cazuri de abuz).</li>
+</ul>
+
+<h3>7. Stocarea și securitatea</h3>
+<p>Datele stocate local sunt păstrate pe dispozitiv și folosește mecanismele standard ale platformei Android. Aplicația nu transmite date sensibile în mod necriptat în afara comportamentului normal (de exemplu încărcarea paginilor web la URL-urile corecte). Facem eforturi rezonabile pentru a proteja datele împotriva accesului neautorizat.</p>
+
+<h3>8. Drepturile tale</h3>
+<p>În baza GDPR, ai următoarele drepturi:</p>
+<ul>
+  <li>Dreptul de acces la date.</li>
+  <li>Dreptul de rectificare.</li>
+  <li>Dreptul de ștergere („dreptul de a fi uitat”).</li>
+  <li>Dreptul de a restricționa prelucrarea.</li>
+  <li>Dreptul de a te opune prelucrării.</li>
+</ul>
+<p>Pentru a exercita aceste drepturi, ne poți contacta la: <a href="mailto:acitexsoftwarero@gmail.com">acitexsoftwarero@gmail.com</a>. Deși nu există conturi autentificate, putem asista cu ștergerea datelor locale sau clarificări.</p>
+
+<h3>9. Legătura cu alte site-uri</h3>
+<p>Aplicația (prin conținut web) poate conține link-uri către site-uri terțe. NXT64 Software nu este responsabilă pentru practicile de confidențialitate ale acelora. Vă recomandăm să citiți politicile de confidențialitate ale terțelor părți accesate.</p>
+
+<h3>10. Păstrarea și modificările</h3>
+<p>Putem actualiza această politică periodic. Orice modificare semnificativă va fi reflectată prin actualizarea datei din partea de sus.</p>
+
+<h3>11. Contact</h3>
+<p>Pentru întrebări sau solicitări legate de această politică, ne poți contacta la: <a href="mailto:acitexsoftwarero@gmail.com">acitexsoftwarero@gmail.com</a></p>
+
+
+    ]]></string>
+
+    <string name="termeni_titlu">Termeni și condiții</string>
+    <string name="termeni_text"><![CDATA[
+        <b>CONDIȚII DE UTILIZARE</b><br/><br/>
+        Acestea sunt condițiile de utilizare dacă doriți să preluați conținut de pe site-ul bacromana.ro:<br/>
+        - puteți copia conținutul comentariilor în scop personal, necomercial<br/>
+        - distribuirea comentariilor este strict interzisă<br/>
+        - pentru întrebări privind experiența pe site, email: <a href="mailto:acitexsoftwarero@gmail.com">acitexsoftwarero@gmail.com</a><br/><br/>
+
+        <b>ACCEPTAREA CONDIȚIILOR</b><br/>
+        Prin accesarea acestui site web și/sau a oricărei pagini a acestuia, sunteți de acord cu aceste condiții de utilizare și cu <a href="javascript:void(0);" style="font-weight:600;">Politica de confidențialitate</a>. Dacă nu sunteți de acord, vă rugăm să nu accesați acest site.<br/><br/>
+
+        <b>DESCRIEREA SERVICIILOR</b><br/>
+        Site-ul oferă informații în scop informativ general și nu garantează exactitatea absolută a acestora, deși se depune efort pentru actualizarea constantă.<br/><br/>
+
+        <b>INTRODUCERE</b><br/>
+        Prezentele Condiții Generale definesc regulile de utilizare a site-ului bacromana.ro de către vizitatori sau clienți. Accesând și navigând pe site, acceptați termenii descriși în continuare.<br/><br/>
+
+        <b>DREPTURILE ASUPRA CONȚINUTULUI</b><br/>
+        NXT64 Software nu transferă titlul de proprietate asupra aplicațiilor software. Toate drepturile de autor și de proprietate sunt deținute integral de NXT64 Software.<br/>
+        Este interzisă redistribuirea, vânzarea, decompilarea sau modificarea aplicațiilor software. Conținutul site-ului este protejat prin legea drepturilor de autor.<br/><br/>
+
+        <b>NEANGAJAREA RĂSPUNDERII</b><br/>
+        NXT64 Software nu garantează:<br/>
+        &ndash; evitarea utilizării anevoioase sau a întreruperilor site-ului<br/>
+        &ndash; neafectarea altor sisteme prin utilizarea site-ului<br/>
+        &ndash; lipsa virusurilor sau a altor componente dăunătoare<br/>
+        NXT64 Software nu poate fi responsabilă pentru daune directe sau indirecte rezultate din utilizarea site-ului.<br/><br/>
+
+        <b>OBIECTIVUL CONȚINUTULUI SITE-ULUI</b><br/>
+        Obiectivul este transmiterea de informații actualizate și corecte. Deși se depun eforturi constante, NXT64 Software nu garantează absența completă a erorilor.<br/><br/>
+
+        <b>INFORMAȚII PERSONALE</b><br/>
+        Datele colectate (ex. adresa de e-mail pentru contact) sunt utilizate pentru identificare, contact și furnizarea de materiale educaționale sau suport. Acestea pot fi stocate și procesate electronic, respectând legislația privind protecția datelor.<br/><br/>
+
+        <b>LEGĂTURA CU ALTE SITE-URI</b><br/>
+        Site-ul poate conține link-uri către site-uri externe considerate utile. NXT64 Software nu garantează și nu este responsabilă pentru actualitatea sau acuratețea informațiilor de pe site-uri terțe.<br/><br/>
+
+        <b>INFORMAȚIILE OFERITE PRIN SITE</b><br/>
+        Orice persoană care oferă date prin acest site își exprimă acordul pentru:<br/>
+        &ndash; prelucrarea datelor de către NXT64 Software<br/>
+        &ndash; transmiterea de materiale educaționale<br/>
+        &ndash; rezolvarea solicitărilor, întrebărilor și reclamațiilor<br/>
+        Utilizarea în continuare a site-ului constituie acordul expres pentru prelucrarea datelor conform legislației GDPR.<br/><br/>
+
+        <b>LICENȚA MIT</b><br/>
+        <pre style="font-family:monospace;">
+MIT License
+
+Copyright © 2025 Alexandru Epure
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+        </pre><br/>
+
+        <b>CONTACT</b><br/>
+        Pentru întrebări referitoare la acești termeni, ne puteți contacta la: <a href="mailto:acitexsoftwarero@gmail.com">acitexsoftwarero@gmail.com</a><br/><br/>
+        Dezvoltator: Alexandru Epure<br/><br/>
+
+        Ultima actualizare: 31 iulie 2025.
+    ]]></string>
+
+    <string name="no_connection">Conexiune la internet inexistentă. Doriți să trecem la varianta offline?</string>
+    <string name="retry">Reîncearcă</string>
+    <string name="offline_mode">Mod offline</string>
+</resources>
