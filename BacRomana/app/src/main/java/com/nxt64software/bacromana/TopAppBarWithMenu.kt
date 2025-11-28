@@ -19,8 +19,8 @@ fun TopAppBarWithMenu(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val isDark = isSystemInDarkTheme()
-    val background = if (isDark) Color(0xFF253687) else Color.White
-    val contentColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary
+    val background = if (isDark) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
+    val contentColor = if (isDark) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface
 
     CenterAlignedTopAppBar(
         navigationIcon = {
@@ -40,7 +40,7 @@ fun TopAppBarWithMenu(
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
-                containerColor = if (isDark) MaterialTheme.colorScheme.surface else Color.White
+                containerColor = MaterialTheme.colorScheme.surface
             ) {
                 DropdownMenuItem(
                     text = { Text(stringResource(id = R.string.home)) },

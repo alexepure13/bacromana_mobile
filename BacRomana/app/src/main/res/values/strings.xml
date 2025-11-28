@@ -191,4 +191,13 @@ SOFTWARE.
     <string name="no_connection">Conexiune la internet inexistentă. Doriți să trecem la varianta offline?</string>
     <string name="retry">Reîncearcă</string>
     <string name="offline_mode">Mod offline</string>
+
+    <!-- Rating Dialog Strings -->
+    <string name="rate_app_title">Evaluează aplicația</string>
+    <string name="rate_app_message">Îți place aplicația Bac Română? Ajută-ne să ne îmbunătățim lăsând un review!</string>
+    <string name="rate_app_select_stars">Selectează numărul de stele</string>
+    <string name="rate_app_rate_now">Evaluează acum</string>
+    <string name="rate_app_later">Mai târziu</string>
+    <string name="rate_app_never">Nu</string>
+    <string name="rate_app_thanks">Mulțumim pentru feedback!</string>
 </resources>

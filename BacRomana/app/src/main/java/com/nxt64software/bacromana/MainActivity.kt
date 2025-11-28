@@ -23,6 +23,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var rateAppManager: RateAppManager
+
     private fun hasInternet(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val caps = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
@@ -102,6 +104,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Initialize rating manager and increment launch count
+        rateAppManager = RateAppManager(this)
+        rateAppManager.incrementLaunchCount()
+
         setContent {
             BacRomanaTheme {
                 val context = this@MainActivity
@@ -114,6 +120,7 @@ class MainActivity : ComponentActivity() {
 
                 var showNoNetworkDialog by remember { mutableStateOf(false) }
                 var currentError by remember { mutableStateOf<String?>(null) }
+                var showRateAppDialog by remember { mutableStateOf(false) }
 
                 // callback to trigger reload from app bar
                 var reloadWebView: () -> Unit by remember { mutableStateOf({}) }
@@ -123,6 +130,13 @@ class MainActivity : ComponentActivity() {
                     if (!hasInternet(context)) {
                         currentError = "A apărut o eroare la încărcarea paginii."
                         showNoNetworkDialog = true
+                    }
+                }
+
+                // check if rating dialog should be shown
+                LaunchedEffect(Unit) {
+                    if (rateAppManager.shouldShowRatingDialog()) {
+                        showRateAppDialog = true
                     }
                 }
 
@@ -190,6 +204,28 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onDismiss = {
                                     showNoNetworkDialog = false
+                                }
+                            )
+                        }
+
+                        if (showRateAppDialog) {
+                            RateAppDialog(
+                                onDismiss = { showRateAppDialog = false },
+                                onRateNow = { rating ->
+                                    showRateAppDialog = false
+                                    rateAppManager.markAsRated()
+                                    openPlayStoreForRating(context)
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar("Mulțumim pentru evaluarea cu $rating stele!")
+                                    }
+                                },
+                                onRateLater = {
+                                    showRateAppDialog = false
+                                    // Will show again after more launches
+                                },
+                                onNeverShowAgain = {
+                                    showRateAppDialog = false
+                                    rateAppManager.neverShowAgain()
                                 }
                             )
                         }

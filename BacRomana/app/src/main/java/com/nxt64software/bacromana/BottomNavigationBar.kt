@@ -23,11 +23,11 @@ fun BottomNavigationBar(
     onSelect: (Screen) -> Unit
 ) {
     val isDark = isSystemInDarkTheme()
-    val background = if (isDark) Color(0xFF253687) else Color.White
-    val contentColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary
+    val background = if (isDark) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
+    val contentColor = if (isDark) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface
 
     // fundal pentru iconița selectată
-    val selectedIconBackground = if (isDark) Color(0xFF2F3FAF) else MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+    val selectedIconBackground = if (isDark) Color.White.copy(alpha = 0.1f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
 
     NavigationBar(
         tonalElevation = 0.dp,
@@ -51,16 +51,16 @@ fun BottomNavigationBar(
                     Icon(
                         imageVector = Icons.Filled.Home,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             label = { Text(stringResource(id = R.string.home)) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = contentColor,
-                unselectedIconColor = contentColor.copy(alpha = 0.7f),
-                selectedTextColor = contentColor,
-                unselectedTextColor = contentColor.copy(alpha = 0.7f)
+                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
         // Subiectul I
@@ -86,10 +86,10 @@ fun BottomNavigationBar(
             },
             label = { Text(stringResource(id = R.string.subiectul_i)) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = contentColor,
-                unselectedIconColor = contentColor.copy(alpha = 0.7f),
-                selectedTextColor = contentColor,
-                unselectedTextColor = contentColor.copy(alpha = 0.7f)
+                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
         // Subiectul II
@@ -109,16 +109,16 @@ fun BottomNavigationBar(
                     Icon(
                         imageVector = Icons.Filled.Filter2,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             label = { Text(stringResource(id = R.string.subiectul_ii)) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = contentColor,
-                unselectedIconColor = contentColor.copy(alpha = 0.7f),
-                selectedTextColor = contentColor,
-                unselectedTextColor = contentColor.copy(alpha = 0.7f)
+                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
         // Subiectul III
@@ -138,16 +138,16 @@ fun BottomNavigationBar(
                     Icon(
                         imageVector = Icons.Filled.Filter3,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             label = { Text(stringResource(id = R.string.subiectul_iii)) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = contentColor,
-                unselectedIconColor = contentColor.copy(alpha = 0.7f),
-                selectedTextColor = contentColor,
-                unselectedTextColor = contentColor.copy(alpha = 0.7f)
+                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
         // Quiz
@@ -167,16 +167,16 @@ fun BottomNavigationBar(
                     Icon(
                         imageVector = Icons.Filled.HelpOutline,
                         contentDescription = null,
-                        tint = contentColor
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             },
             label = { Text(stringResource(id = R.string.quiz)) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = contentColor,
-                unselectedIconColor = contentColor.copy(alpha = 0.7f),
-                selectedTextColor = contentColor,
-                unselectedTextColor = contentColor.copy(alpha = 0.7f)
+                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
     }
