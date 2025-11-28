@@ -32,7 +32,7 @@ fun TopAppBarWithMenu(
                 )
             }
         },
-        title = { Text("Bacalaureat 2025", color = contentColor) },
+        title = { Text("Bacalaureat 2026", color = contentColor) },
         actions = {
             IconButton(onClick = { expanded = true }) {
                 Icon(Icons.Filled.MoreVert, contentDescription = "Meniu", tint = contentColor)

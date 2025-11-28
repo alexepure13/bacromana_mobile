@@ -1,21 +1,28 @@
 package com.nxt64software.bacromana
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.graphics.Color
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+
+// Structură simplă pentru datele meniului
+private data class NavItem(
+    val screen: Screen,
+    val icon: ImageVector,
+    val labelResId: Int
+)
 
 @Composable
 fun BottomNavigationBar(
@@ -23,161 +30,73 @@ fun BottomNavigationBar(
     onSelect: (Screen) -> Unit
 ) {
     val isDark = isSystemInDarkTheme()
-    val background = if (isDark) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
-    val contentColor = if (isDark) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface
 
-    // fundal pentru iconița selectată
-    val selectedIconBackground = if (isDark) Color.White.copy(alpha = 0.1f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+    // Culorile de bază ale barei
+    val barContainerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
+    val barContentColor = if (isDark) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface
+
+    // Culoarea cercului din spatele iconiței
+    // Opacitate 0.15f pentru un efect subtil, dar vizibil
+    val customSelectionColor = if (isDark) Color.White.copy(alpha = 0.15f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+
+    // Culoarea textului și iconiței selectate
+    val selectedTextCol = if (isDark) Color.White else MaterialTheme.colorScheme.primary
+
+    val items = listOf(
+        NavItem(Screen.Home, Icons.Filled.Home, R.string.home),
+        NavItem(Screen.Sub1, Icons.Filled.Filter1, R.string.subiectul_i),
+        NavItem(Screen.Sub2, Icons.Filled.Filter2, R.string.subiectul_ii),
+        NavItem(Screen.Sub3, Icons.Filled.Filter3, R.string.subiectul_iii),
+        NavItem(Screen.Quiz, Icons.Filled.HelpOutline, R.string.quiz)
+    )
 
     NavigationBar(
         tonalElevation = 0.dp,
-        containerColor = background,
-        contentColor = contentColor
+        containerColor = barContainerColor,
+        contentColor = barContentColor
     ) {
-        // Home
-        NavigationBarItem(
-            selected = currentRoute == Screen.Home.route,
-            onClick = { onSelect(Screen.Home) },
-            icon = {
-                Box(
-                    modifier = androidx.compose.ui.Modifier
-                        .size(32.dp)
-                        .background(
-                            color = if (currentRoute == Screen.Home.route) selectedIconBackground else Color.Transparent,
-                            shape = CircleShape
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Home,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
+        items.forEach { item ->
+            val isSelected = currentRoute == item.screen.route
+
+            NavigationBarItem(
+                selected = isSelected,
+                onClick = { onSelect(item.screen) },
+                icon = {
+                    Box(
+                        modifier = Modifier
+                            // AM MĂRIT AICI DE LA 32.dp LA 48.dp
+                            .size(48.dp)
+                            .background(
+                                color = if (isSelected) customSelectionColor else Color.Transparent,
+                                shape = CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = item.icon,
+                            contentDescription = null,
+                            tint = if (isSelected) selectedTextCol else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = item.labelResId),
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        style = MaterialTheme.typography.labelSmall
                     )
-                }
-            },
-            label = { Text(stringResource(id = R.string.home)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    // Important: Ascundem indicatorul default ca să se vadă doar Box-ul nostru
+                    indicatorColor = Color.Transparent,
+
+                    selectedTextColor = selectedTextCol,
+                    selectedIconColor = selectedTextCol,
+
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
-        )
-        // Subiectul I
-        NavigationBarItem(
-            selected = currentRoute == Screen.Sub1.route,
-            onClick = { onSelect(Screen.Sub1) },
-            icon = {
-                Box(
-                    modifier = androidx.compose.ui.Modifier
-                        .size(32.dp)
-                        .background(
-                            color = if (currentRoute == Screen.Sub1.route) selectedIconBackground else Color.Transparent,
-                            shape = CircleShape
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Filter1,
-                        contentDescription = null,
-                        tint = contentColor
-                    )
-                }
-            },
-            label = { Text(stringResource(id = R.string.subiectul_i)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        )
-        // Subiectul II
-        NavigationBarItem(
-            selected = currentRoute == Screen.Sub2.route,
-            onClick = { onSelect(Screen.Sub2) },
-            icon = {
-                Box(
-                    modifier = androidx.compose.ui.Modifier
-                        .size(32.dp)
-                        .background(
-                            color = if (currentRoute == Screen.Sub2.route) selectedIconBackground else Color.Transparent,
-                            shape = CircleShape
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Filter2,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            label = { Text(stringResource(id = R.string.subiectul_ii)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        )
-        // Subiectul III
-        NavigationBarItem(
-            selected = currentRoute == Screen.Sub3.route,
-            onClick = { onSelect(Screen.Sub3) },
-            icon = {
-                Box(
-                    modifier = androidx.compose.ui.Modifier
-                        .size(32.dp)
-                        .background(
-                            color = if (currentRoute == Screen.Sub3.route) selectedIconBackground else Color.Transparent,
-                            shape = CircleShape
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Filter3,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            label = { Text(stringResource(id = R.string.subiectul_iii)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        )
-        // Quiz
-        NavigationBarItem(
-            selected = currentRoute == Screen.Quiz.route,
-            onClick = { onSelect(Screen.Quiz) },
-            icon = {
-                Box(
-                    modifier = androidx.compose.ui.Modifier
-                        .size(32.dp)
-                        .background(
-                            color = if (currentRoute == Screen.Quiz.route) selectedIconBackground else Color.Transparent,
-                            shape = CircleShape
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.HelpOutline,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            label = { Text(stringResource(id = R.string.quiz)) },
-            colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                selectedTextColor = if (isDark) Color.White else MaterialTheme.colorScheme.primary,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        )
+        }
     }
 }

@@ -1,14 +1,18 @@
 package com.nxt64software.bacromana
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.webkit.JavascriptInterface
+import android.os.Build
+import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
@@ -16,7 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
+// Păstrăm importul, dar îl folosim defensiv
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun WebViewScreen(
     path: String,
@@ -29,7 +37,10 @@ fun WebViewScreen(
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(true) }
 
-    // mapping (could be shared)
+    // Păstrăm verificarea temei, dar o folosim doar pentru background-ul "din spate"
+    val isDarkTheme = isSystemInDarkTheme()
+    val backgroundColor = if (isDarkTheme) 0xFF1F2F50.toInt() else 0xFFFFFFFF.toInt()
+
     val pathToScreen = mapOf(
         "mijloace-de-caracterizare-a-personajelor" to Screen.Sub2.route,
         "textul-argumentativ" to Screen.Sub1.route,
@@ -86,23 +97,76 @@ fun WebViewScreen(
             }
     }
 
-    key(path) {} // forțează recrearea când se schimbă path
+    key(path) {}
 
     Box(modifier = Modifier.fillMaxSize()) {
         var webViewRef: WebView? = null
 
-        AndroidView(factory = {
-            WebView(it).apply {
+        AndroidView(factory = { ctx ->
+            WebView(ctx).apply {
                 webViewRef = this
+
+                // Setăm layout params pentru a fi siguri că ocupă tot spațiul
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+
+                // Setăm culoarea de fundal a componentei WebView (nu a paginii HTML)
+                setBackgroundColor(backgroundColor)
+
                 settings.apply {
                     javaScriptEnabled = true
                     domStorageEnabled = true
+                    databaseEnabled = true
+                    useWideViewPort = true
+                    loadWithOverviewMode = true
                     cacheMode = WebSettings.LOAD_DEFAULT
+
+                    // Activăm accesul la fișiere
                     allowFileAccess = true
                     allowContentAccess = true
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+
+                    // Activăm Mixed Content (HTTPS care încarcă HTTP) - important pentru unele reclame/imagini
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+                    }
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         allowFileAccessFromFileURLs = true
                         allowUniversalAccessFromFileURLs = true
+                    }
+                }
+
+                // ============================================================
+                // FIX CRITIC: THIRD PARTY COOKIES
+                // Fără asta, Google Consent nu își poate încărca stilurile/preferințele
+                // ============================================================
+                val cookieManager = CookieManager.getInstance()
+                cookieManager.setAcceptCookie(true)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    cookieManager.setAcceptThirdPartyCookies(this, true)
+                }
+                // ============================================================
+
+
+                // ============================================================
+                // CONFIGURARE DARK MODE - SIMPLIFICATĂ
+                // Dacă site-ul e stricat de Dark Mode, îl oprim aici pentru test.
+                // ============================================================
+                if (isDarkTheme) {
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
+                        WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings, true)
+                    } else if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                        @Suppress("DEPRECATION")
+                        WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_ON)
+                    }
+                } else {
+                    if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
+                        WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings, false)
+                    } else if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                        @Suppress("DEPRECATION")
+                        WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_OFF)
                     }
                 }
 
@@ -122,56 +186,24 @@ fun WebViewScreen(
 
                     override fun onPageFinished(view: WebView?, url: String?) {
                         isLoading = false
-                        url?.let {
-                            onPathChanged(deriveRouteFromUrl(it))
-                        }
+                        url?.let { onPathChanged(deriveRouteFromUrl(it)) }
+
+                        // Bridge pentru navigație
                         view?.evaluateJavascript(
                             """
                             (function(){
                                 function notifyRoute(){ window.AndroidBridge.routeChanged(window.location.href); }
                                 window.addEventListener('hashchange', notifyRoute);
                                 notifyRoute();
-                                document.addEventListener('click', function(){
-                                    setTimeout(function(){
-                                        fetch(window.location.origin + '/favicon.ico', {method:'HEAD', cache:'no-store', mode:'no-cors'})
-                                            .catch(function(){ window.AndroidBridge.noNetworkDetected(window.location.href); });
-                                    }, 100);
-                                }, true);
                             })();
-                            """.trimIndent(),
-                            null
+                            """.trimIndent(), null
                         )
                     }
 
-                    override fun onReceivedError(
-                        view: WebView?,
-                        errorCode: Int,
-                        description: String?,
-                        failingUrl: String?
-                    ) {
-                        super.onReceivedError(view, errorCode, description, failingUrl)
-                        val msg = "Eroare la încărcare: ${description ?: "necunoscut"}"
-                        errorLogContainer?.add(msg)
-                        onError("A apărut o eroare la încărcarea paginii.")
-                        if (!hasInternet(context)) {
-                            failingUrl?.let { onNoNetwork(it) }
-                        }
-                    }
-
-                    override fun onReceivedError(
-                        view: WebView?,
-                        request: WebResourceRequest?,
-                        error: WebResourceError?
-                    ) {
+                    override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                         super.onReceivedError(view, request, error)
-                        val urlStr = request?.url?.toString() ?: "unknown"
-                        val desc = error?.description?.toString() ?: "necunoscut"
-                        val msg = "Eroare modernă: $urlStr desc=$desc"
-                        errorLogContainer?.add(msg)
-                        onError("A apărut o eroare la încărcarea paginii.")
-                        if (!hasInternet(context)) {
-                            onNoNetwork(urlStr)
-                        }
+                        // Log erorile dar nu le arăta utilizatorului agresiv dacă e doar o resursă secundară
+                        errorLogContainer?.add("Err: ${request?.url} - ${error?.description}")
                     }
                 }
 
@@ -181,12 +213,9 @@ fun WebViewScreen(
             }
         }, modifier = Modifier.fillMaxSize())
 
-        // expune reload
         LaunchedEffect(webViewRef) {
             webViewRef?.let { webview ->
-                provideReload {
-                    webview.reload()
-                }
+                provideReload { webview.reload() }
             }
         }
 
@@ -198,7 +227,6 @@ fun WebViewScreen(
     }
 }
 
-// helper pentru network check
 private fun hasInternet(context: Context): Boolean {
     val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val caps = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
